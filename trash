@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ -z ${TRASH+x} ]; then 
+	echo "TRASH is unset" >&2
+	exit 1
+fi
+
+# delete the whole TRASH directory
+rm -rf "$TRASH"
+
+# recreate the TRASH directory
+mkdir "$TRASH"

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ -z ${TRASH+x} ]; then 
+	echo "TRASH is unset" >&2
+	exit 1
+fi
+
+for arg in "$@"; do
+	# move each file from trash to the current directory
+	mv "$TRASH"/"$arg" .
+done

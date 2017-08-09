@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ -z ${TRASH+x} ]; then 
+	echo "TRASH is unset" >&2
+	exit 1
+fi
+
+ls -l "$TRASH"

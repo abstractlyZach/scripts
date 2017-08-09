@@ -1,0 +1,31 @@
+#!/bin/bash
+
+numargs=0 # counts the number of non-option args
+
+for arg in "$@"; do
+	if [[ $arg == -* ]] ; # the argument is an option
+	then
+		for (( i=0; i<${#arg}; i++ )) ; do # loop through the flags
+			flag=${arg:$i:1}
+			if [[ ${arg:$i:1} =~ [cftuvUX] ]] ;
+			then
+				# write to stderr and exit
+				echo "lss: invalid command: $flag" >&2
+				exit 2
+			fi
+		done
+	else numargs=$((numargs+1)) # increment the number of args if not an option
+	fi
+done
+
+if (( $numargs == 0 )) ; then
+	# use * so that all items in the current directory are shown
+	out=$(ls -lSd "$@" *)
+else
+	out=$(ls -lSd "$@")
+fi
+
+if [ $? -eq 0 ] # if the command executed successfully
+then
+  echo "$out"
+fi

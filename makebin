@@ -1,0 +1,11 @@
+#!/bin/bash
+# makes a file executable and moves it into the bin file
+
+if [[ $# < 1 ]] ; then
+	echo "makebin: please specify the files you want to make into binaries" >&2
+	exit 1
+fi
+for arg in "$@"; do
+	chmod +x "$arg"
+	cp "$arg" "/home/zach/bin"
+done

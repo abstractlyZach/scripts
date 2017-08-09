@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ -z ${TRASH+x} ]; then 
+	echo "TRASH is unset" >&2
+	exit 1
+fi
+
+num_files=$( lsrm | wc -l )
+if (( $num_files <= 1 )); then
+	echo "TRASH is empty"
+else
+	du "$TRASH"/*
+fi

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [ -z ${TRASH+x} ]; then 
+	echo "TRASH is unset" >&2
+	exit 1
+fi
+
+options=false
+for arg in "$@"; do
+        if [[ $arg == -* ]] ; # the argument is an option
+        then
+		options=true
+        fi
+done
+
+if $options; then 
+	# use rm if options are given
+	rm "$@"
+else
+	# move each file to the trash
+	for arg in "$@"; do
+		mv "$arg" "$TRASH"
+	done
+fi
+
+
